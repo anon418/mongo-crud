@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import localFont from 'next/font/local'
 import './globals.css'
 import Navbar from '@/components/Navbar'
+import { NextAuthProvider } from '@/components/Provider'
 
 const geistSans = localFont({
   src: './fonts/GeistVF.woff',
@@ -21,18 +22,18 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode
-}>) {
+}) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        <div className="max-w-4xl mx-auto">
-          <Navbar />
-          <div className="mt-8">{children}</div>
-        </div>
+      <body className={`${geistSans.variable} ${geistMono.variable}`}>
+        <NextAuthProvider>
+          <div className="max-w-3xl mx-auto p-4">
+            <Navbar />
+            <div className="mt-8">{children}</div>
+          </div>
+        </NextAuthProvider>
       </body>
     </html>
   )
